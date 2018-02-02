@@ -121,4 +121,4 @@ ra_dec_mass['RA'], ra_dec_mass['DEC'], ra_dec_mass['cl_mass'] = fit_ra[np.int_(c
 # we now adjust mass of H72.97-69.39 as it is severely underestimated (did not include Far-IR). Total luminosity from SED fit (aperture_photometry) is single ~150 Msol star. For massive stars, the evolutionary track is nearly horizontal, so the current luminosity should be close zo ZAMS mass. Then with an IMF we find totall mass ~ 3112 Msun
 ra_dec_mass['cl_mass'][60] = 3117
 
-np.savetxt('/data1/python/output/paper3/github/sfr_radec_myso.txt', ra_dec_mass, fmt="%s")
+np.savetxt('image_data_files/sfr_radec_myso.txt', ra_dec_mass, fmt="%s")
