@@ -37,7 +37,7 @@ def radius(xpix,ypix,xcenter,ycenter):
     
 def get_par(xcenter_cube,ycenter_cube,radius,array,wcs_mol,pix_size,tracer):
     """
-    calculate SFR_myso and ISM parameters as a func
+    calculate SFR_myso and ISM parameters as a function of aperture size
     """
     
     xcube0,ycube0,zcube0 = w.all_pix2world(xcenter_cube,ycenter_cube,0,0)
