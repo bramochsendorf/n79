@@ -28,11 +28,17 @@ srpx = 2.3504e-11 * 3136 # the amount of steradian per pix
 
 
 def radius(xpix,ypix,xcenter,ycenter):
-    # calculate the radius from (xpix, ypix) to (xcenter, ycenter)
+    """
+    calculate the radius from (xpix, ypix) to (xcenter, ycenter)
+    """
     rad = np.sqrt((xpix-xcenter)**2+(ypix-ycenter)**2)
+    
     return rad
     
 def get_par(xcenter_cube,ycenter_cube,radius,array,wcs_mol,pix_size,tracer):
+    """
+    calculate SFR_myso and ISM parameters as a func
+    """
     
     xcube0,ycube0,zcube0 = w.all_pix2world(xcenter_cube,ycenter_cube,0,0)
     radius2 = radius*(20./pix_size) # everything normalized to the HI pixel size (20")
@@ -53,7 +59,9 @@ def get_par(xcenter_cube,ycenter_cube,radius,array,wcs_mol,pix_size,tracer):
     return mol_mass
     
 def calc_par(xcen,ycen,xpix,ypix,apertures,data_hi,data_co,data_j16,data_hii,data_ha,data_um24,wcs_hi,wcs_co,wcs_j16,wcs_hii,wcs_ha,wcs_um24):
-    # calculate SFR_myso and ISM masses etc as a function of aperture size
+    """
+    calculate SFR_myso and ISM parameters as a function of aperture size
+    """    
     
     distance = radius(xpix,ypix,xcen,ycen)
     
@@ -82,29 +90,36 @@ def calc_par(xcen,ycen,xpix,ypix,apertures,data_hi,data_co,data_j16,data_hii,dat
     
     # save to dataframe
     result = pd.DataFrame(d)
- 
+     
     return result
 
 def sfr(ha,um24):
-    # calculate SFR from Ha and 24 micron (Calzetti et al. 2007)
+    """
+    calculate SFR from Ha and 24 micron (Calzetti et al. 2007)
+    """
     l_ir = 4.*np.pi*(5e4*3.086e18)**2*(um24*srpx*1e-23*1e6*hz) # IR (input map in MJy/sr)
     l_ha = 4.*np.pi*(5e4*3.086e18)**2*(ha*5.661e-18*aspx*0.1) # halpha (0.1 comes from decirayleigh)        
     em_final = 5.3e-42*(l_ha + 0.032*l_ir)*1e6
+    
     return em_final 
     
 def vir(par,apertures):
-    # calculate virial parameter. Factor 5 comes from 20" ~ 5 pc @ the distance of the LMC
+    """
+    calculate virial parameter. Factor 5 comes from 20" ~ 5 pc @ the distance of the LMC
+    """
     disp = par['disp']
     co = par['co']
     vir_par =(5*(disp*1e5)**2*(aperture*5*pccm))/(grav*(co)*sol_mass)
+    
     return vir_par
 
 def sfr_sfe(par,apertures,rad):
-    # calculate star formation efficiencies (only molecular and total gas)
-    # adjust SFR by factor of 2 (Pellegrini et al. 2011; Ochsendorf et al. 2017)
-    # factor 5 comes from 20" per pixel ~ 5 pc at the distance of the LMC
-    # first extract relevant columns from dataframe
-    
+    """
+    calculate star formation efficiencies (only molecular and total gas)
+    adjust SFR by factor of 2 (Pellegrini et al. 2011; Ochsendorf et al. 2017)
+    factor 5 comes from 20" per pixel ~ 5 pc at the distance of the LMC
+    first extract relevant columns from dataframe
+    """
     sfr_ha = par['sfr_ha']
     j16 = par['j16']
     hi = par['hi']
@@ -114,6 +129,7 @@ def sfr_sfe(par,apertures,rad):
     index = np.argmin(np.abs(apertures - rad))
     sfe = sfr_ha[index]*2./(j16[index]+hi[index]+hii[index])
     sfe_mol = sfr_ha[index]*2./(j16[index])
+    
     return index,sfe,sfe_mol
 
 
@@ -220,7 +236,3 @@ plot_1(hi_flat,hi_cut,output)
 plot_2(aperture,n79_par,n79_ind,n79_sfe,n79_sfe_mol,dor30_par,dor30_ind,dor30_sfe,dor30_sfe_mol,n11_par,n11_ind,n11_sfe,n11_sfe_mol,output)
 plot_s1(aperture,n79_par['vir'],dor30_par['vir'],n11_par['vir'],output)
 plot_s2(aperture,n79_par,dor30_par,n11_par,output)
-
-
-
-
