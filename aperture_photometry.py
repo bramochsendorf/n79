@@ -50,13 +50,13 @@ def mod_blackbody_lam(nu, scale, beta, T):
 images = ['irac_36','irac_45','irac_58','irac_80','wise_22','mips_70','pacs_100','pacs_160','spire_250','spire_350','spire_500']
 
 # read in first image to get dimensions
-irac_3 = fits.open('/data1/Data/lmc_smc/n79/cutout/irac_36.fits')[0]
+irac_3 = fits.open('image_data_files/cutout/irac_36.fits')[0]
 
 # fill up cube
 data_cube = []
 
 for im in images:
-    implane = fits.open('/data1/Data/lmc_smc/n79/cutout/'+im+'.fits')[0]
+    implane = fits.open('image_data_files/cutout/'+im+'.fits')[0]
     data_cube.append(implane)
   
   
@@ -68,7 +68,7 @@ for im in images:
 # cube parameters (wavelength of images, resolution in arcseconds, and pixel sizes)
 wave = np.float_([3.6,4.5,5.8,8,22,70,100,160,250,350,500]) 
 fwhm = [2.,2.,2.,2.,12.,20.,7.,12.,18.2,24.9,36.3]
-pix = [2.,2.,2.,2.,1.375,4.8,2.,3.,6.,10.,14]
+pix = [2.,2.,2.,2.,3.,4.8,2.,3.,6.,10.,14]
 
 # define poistion and aperture for photometry
 positions = [72.971945, -69.391315] # S-1 (H72.97)
@@ -174,14 +174,15 @@ axes.set_xlim([0.5,5000])
 axes.set_ylim([1e-12,1e-7])   
 axes.set_xscale("log")
 axes.set_yscale("log")
-plt.savefig('/data1/python/output/paper3/github/h7297_sedfit.pdf',dpi=75)
-    
-exit()
-    
+plt.savefig('output/figure_3b.pdf',dpi=75)
+
 # save spectrum for JWST ETC (micron, mJy)  
 h72_sed = np.zeros(len(nu), dtype=[('var1',float),('var2',float)])
 h72_sed['var1'], h72_sed['var2']= 3e14/nu[::-1], (ybest1[::-1]+ybest2[::-1])
-np.savetxt('/data1/python/output/paper3/github/h72_sed.txt', h72_sed, fmt="%s")
+np.savetxt('output/h72_sed.txt', h72_sed, fmt="%s")
+    
+    
+
 
     
     

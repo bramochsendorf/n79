@@ -37,7 +37,7 @@ def radius(xpix,ypix,xcenter,ycenter):
     
 def get_par(xcenter_cube,ycenter_cube,radius,array,wcs_mol,pix_size,tracer):
     """
-    calculate SFR_myso and ISM parameters as a function of aperture size
+    calculate SFR_myso and ISM parameters as a func
     """
     
     xcube0,ycube0,zcube0 = w.all_pix2world(xcenter_cube,ycenter_cube,0,0)
@@ -67,7 +67,7 @@ def calc_par(xcen,ycen,xpix,ypix,apertures,data_hi,data_co,data_j16,data_hii,dat
     
     # pixel sizes from input maps (in arcseconds)
     pixsize_hi = 20.
-    pixsize_co = 10.
+    pixsize_co = 20.
     pixsize_j16 = 56.
     pixsize_hii = 15.
     pixsize_ha = 56.
@@ -148,7 +148,7 @@ hi_flat.header['NAXIS'] = 2
 del hi_flat.header['CDELT3'], hi_flat.header['CRPIX3'], hi_flat.header['CRVAL3'], hi_flat.header['CTYPE3']
 
 # CO-based molecular gas: multiply by alpha_co factor (8.6; Bollato et al. 2013)
-co = fits.open('image_data_files/co_mom1_10as.fits')[0]
+co = fits.open('image_data_files/co_mom1_20as.fits')[0]
 co.data = co.data * 8.6
 
 # Dust-based molecular gas (courtesy Katie Jameson); mask negative values
@@ -160,7 +160,7 @@ j16.data[bad] = 0
 hii = fits.open('image_data_files/lmc_ionized_halpha_surf_dens.fits')[0]
 
 # CO velocity dispersion
-co_mom2 = fits.open('image_data_files/co_mom2_10as.fits')[0]
+co_mom2 = fits.open('image_data_files/co_mom2_20as.fits')[0]
 
 # Halpha (SHASSA) + 24micron (SAGE)
 ha = fits.open('image_data_files/ha.fits')[0]
@@ -230,7 +230,7 @@ n11_ind,n11_sfe,n11_sfe_mol = sfr_sfe(n11_par,aperture,150)
 # MAKE PLOTS
 ####################################
 
-output = '/data1/python/output/paper3/github/'
+output = 'output/'
 
 plot_1(hi_flat,hi_cut,output)
 plot_2(aperture,n79_par,n79_ind,n79_sfe,n79_sfe_mol,dor30_par,dor30_ind,dor30_sfe,dor30_sfe_mol,n11_par,n11_ind,n11_sfe,n11_sfe_mol,output)
