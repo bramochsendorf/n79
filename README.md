@@ -14,7 +14,7 @@ Data used:
 - 24 micron (Meixner et al., AJ, 132, 2006)
 - a list of MYSOs with columns RA, DEC, YSO mass created in build_yso_list.py
 
-HI, CO, H+ surface density, Halpha, and 24 micron are found in folder image_data_files/. The 'dust-based' molecular gas map can be found in the original publication (Jameson et al., ApJ, 825, 2016): http://iopscience.iop.org/article/10.3847/0004-637X/825/1/12. In addition, cutouts of the N79 region at Spitzer/IRAC, Spitzer/MIPS, Herschel/PACS, and Herschel/SPIRE wavelengths used in the aperture photometry are provided in image_data_files/cutouts
+HI, CO, H+ surface density, Halpha, and 24 micron are found in folder image_data_files/. The 'dust-based' molecular gas map can be found in the original publication (Jameson et al., ApJ, 825, 2016): http://iopscience.iop.org/article/10.3847/0004-637X/825/1/12. In addition, cutouts of the N79 region at Spitzer/IRAC, WISE 22 micron, Spitzer/MIPS, Herschel/PACS, and Herschel/SPIRE wavelengths used in the aperture photometry are provided in image_data_files/cutout
 
 Description of the main analysis scripts:
 
