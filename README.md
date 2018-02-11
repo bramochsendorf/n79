@@ -1,5 +1,5 @@
 # n79
-These files contain the analysis scripts that support the plots in the 2017 Nature Astronomy letter:
+This repository contain the data and analysis scripts used in the 2017 Nature Astronomy letter:
 
 "The star-forming complex LMC-N79 as a future rival to 30 Doradus"
 
